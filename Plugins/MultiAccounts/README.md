@@ -2,6 +2,13 @@
 
 Allows seamless switching between multiple Discord accounts.
 
+## Installation
+
+- Download the script from the button above
+- Install [BetterDiscord](https://betterdiscord.app/)
+- Navigate to `User Settings` > `Plugins` and click `Open Plugins Folder`
+- Drag and drop the plugin file into the folder
+
 ## Usage
 
 | Keybind      | Action |
@@ -10,7 +17,7 @@ Allows seamless switching between multiple Discord accounts.
 | Alt + 9   | Log out of the current account. Useful for when you want to switch to an alternate account prior to saving it.|
 | Alt + 1-8   | Switch to a saved account from numbers 1-8.|
 
-## Privacy Warning
+### Privacy Warning
 
 The way this plugin works is by saving your login token. Using this token, it allows you to login without providing an email or password. With that being said, an attacker who steals your login token can use your Discord account as well. I currently DO NOT store tokens encrypted. Do not share your MultiAccounts.config.json with anyone, as this will leak all saved tokens.
 
