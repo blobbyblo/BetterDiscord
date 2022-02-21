@@ -2,6 +2,9 @@
 
 Allows seamless switching between multiple Discord accounts.
 
+![img1](https://github.com/omen0x8/BetterDiscord/blob/main/Plugins/MultiAccounts/img/Screenshot_35.png?raw=true)
+![img2](https://github.com/omen0x8/BetterDiscord/blob/main/Plugins/MultiAccounts/img/Screenshot_36.png?raw=true)
+
 ## Installation
 
 - Download the script from the button above
