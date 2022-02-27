@@ -3,7 +3,7 @@
  * @author azrael
  * @authorLink https://bobbyobrien.com/
  * @authorId 933831165540966442
- * @version 1.0.0
+ * @version 1.0.1
  * @description Allows seamless switching between multiple Discord accounts.
  * @website https://github.com/omen0x8/BetterDiscord
  * @source https://github.com/omen0x8/BetterDiscord/tree/main/Plugins/MultiAccounts
