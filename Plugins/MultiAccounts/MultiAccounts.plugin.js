@@ -100,7 +100,7 @@ module.exports = (() => {
 				
 				keyEvent(key) {
 					key = key || event;
-					keyMap[key.keyCode] = key.type == 'keydown';
+					keyMap[key.keyCode] = (key.type == 'keydown' && key.key !== 'AltGraph');
 					
 					
 					if (keyMap[18]) {
