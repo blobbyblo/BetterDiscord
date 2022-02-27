@@ -1,6 +1,6 @@
 # Multi Accounts [![Download][dbutton]][dlink]
 
-Allows seamless switching between multiple Discord accounts.
+Allows seamless switching between multiple Discord accounts. Inspired by [AccountSwitcher](https://github.com/l0c4lh057/AccountSwitcher)
 
 ![img1](https://github.com/omen0x8/BetterDiscord/blob/main/Plugins/MultiAccounts/img/Screenshot_35.png?raw=true)
 ![img2](https://github.com/omen0x8/BetterDiscord/blob/main/Plugins/MultiAccounts/img/Screenshot_36.png?raw=true)
