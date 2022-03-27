@@ -3,7 +3,7 @@
  * @author azrael
  * @authorLink https://bobbyobrien.com/
  * @authorId 933831165540966442
- * @version 1.0.1
+ * @version 1.0.3
  * @description Allows seamless switching between multiple Discord accounts.
  * @website https://github.com/omen0x8/BetterDiscord
  * @source https://github.com/omen0x8/BetterDiscord/tree/main/Plugins/MultiAccounts
@@ -24,12 +24,17 @@ module.exports = (() => {
 					twitter_username: "omen0x8"
 				}
 			],
-			version: "1.0.2",
+			version: "1.0.3",
 			description: "Allows seamless switching between multiple Discord accounts.",
 			github: "https://github.com/omen0x8/BetterDiscord/tree/main/Plugins/MultiAccounts",
 			github_raw: "https://raw.githubusercontent.com/omen0x8/BetterDiscord/main/Plugins/MultiAccounts/MultiAccounts.plugin.js"
 		},
 		changelog: [
+			{
+				title: "Changed",
+				type: "new",
+				items: ["Alt keybinds changed to Ctrl."]
+			},
 			{
 				title: "Fixed",
 				type: "fixed",
@@ -100,7 +105,7 @@ module.exports = (() => {
 				
 				keyEvent(key) {
 					key = key || event;
-					keyMap[key.keyCode] = (key.type == 'keydown' && key.code == 'AltLeft');
+					keyMap[key.keyCode] = (key.type == 'keydown' && (key.ctrlKey || key.metaKey));
 					
 					// check keys 1-8
 					for (let idx = 1; idx < 9; idx++) { // account 1 - 8 num 1 - 8
