@@ -24,7 +24,7 @@ module.exports = (() => {
 					twitter_username: "omen0x8"
 				}
 			],
-			version: "1.0.0",
+			version: "1.0.4",
 			description: "Allows seamless switching between multiple Discord accounts.",
 			github: "https://github.com/omen0x8/BetterDiscord/tree/main/Plugins/MultiAccounts",
 			github_raw: "https://raw.githubusercontent.com/omen0x8/BetterDiscord/main/Plugins/MultiAccounts/MultiAccounts.plugin.js"
