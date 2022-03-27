@@ -3,7 +3,7 @@
  * @author azrael
  * @authorLink https://bobbyobrien.com/
  * @authorId 933831165540966442
- * @version 1.0.3
+ * @version 1.0.4
  * @description Allows seamless switching between multiple Discord accounts.
  * @website https://github.com/omen0x8/BetterDiscord
  * @source https://github.com/omen0x8/BetterDiscord/tree/main/Plugins/MultiAccounts
@@ -24,21 +24,16 @@ module.exports = (() => {
 					twitter_username: "omen0x8"
 				}
 			],
-			version: "1.0.3",
+			version: "1.0.0",
 			description: "Allows seamless switching between multiple Discord accounts.",
 			github: "https://github.com/omen0x8/BetterDiscord/tree/main/Plugins/MultiAccounts",
 			github_raw: "https://raw.githubusercontent.com/omen0x8/BetterDiscord/main/Plugins/MultiAccounts/MultiAccounts.plugin.js"
 		},
 		changelog: [
 			{
-				title: "Changed",
-				type: "new",
-				items: ["Alt keybinds changed to Ctrl."]
-			},
-			{
 				title: "Fixed",
 				type: "fixed",
-				items: ["Alt-Keys not being recognized properly."]
+				items: ["Fixed Ctrl keys and reverted update."]
 			}
 		]
 	};
@@ -105,52 +100,51 @@ module.exports = (() => {
 				
 				keyEvent(key) {
 					key = key || event;
-					keyMap[key.keyCode] = (key.type == 'keydown' && (key.ctrlKey || key.metaKey));
+					keyMap[key.keyCode] = (key.type == 'keydown' && key.key !== 'AltGraph');
 					
-					// check keys 1-8
-					for (let idx = 1; idx < 9; idx++) { // account 1 - 8 num 1 - 8
-						if (keyMap[48 + idx] && !savePrompt) {
-							var account = accounts[idx];
-							if (account !== undefined) {
-								if (account.id == UserStore.getCurrentUser().id) {
-									Toasts.show("Already using account " + account.name + ". Press Ctrl+9 to logout.", {type: Toasts.ToastTypes.warning});
+					
+					if (keyMap[18]) {
+						// check keys 1-8
+						for (let idx = 1; idx < 9; idx++) { // account 1 - 8 num 1 - 8
+							if (keyMap[48 + idx] && !savePrompt) {
+								var account = accounts[idx];
+								if (account !== undefined) {
+									if (account.id == UserStore.getCurrentUser().id) {
+										Toasts.show("Already using account " + account.name + ". Press Alt+9 to logout.", {type: Toasts.ToastTypes.warning});
+									}
+									else {
+										Toasts.show("Switched to account " + account.name + ".", {type: Toasts.ToastTypes.info})
+										AccountManager.loginToken(account.token);
+									}
 								}
 								else {
-									Toasts.show("Switched to account " + account.name + ".", {type: Toasts.ToastTypes.info})
-									AccountManager.loginToken(account.token);
+									Toasts.show("Account " + idx + " is not saved! Press Alt+0 to save.", {type: Toasts.ToastTypes.warning})
 								}
+								
+								keyMap = {};
+							}
+						}
+						
+						// check key 0
+						if (keyMap[48]) {
+							if (savePrompt) {
+								Toasts.show("Cancelled save!", {type: Toasts.ToastTypes.info})
+								savePrompt = false;
 							}
 							else {
-								Toasts.show("Account " + idx + " is not saved! Press Ctrl+0 to save.", {type: Toasts.ToastTypes.warning})
+								Toasts.show("Select the number 1-8 you would like to save this account as or Alt+0 again to cancel.", {type: Toasts.ToastTypes.info})
+								savePrompt = true;
 							}
-
-							keyMap = {};
+						}
+						
+						// check key 0
+						if (keyMap[57]) {
+							AccountManager.loginToken("");
 						}
 					}
-
-					// check key 0
-					if (keyMap[48]) {
-						if (savePrompt) {
-							Toasts.show("Cancelled save!", {type: Toasts.ToastTypes.info})
-							savePrompt = false;
-						}
-						else {
-							Toasts.show("Select the number 1-8 you would like to save this account as or Ctrl+0 again to cancel.", {type: Toasts.ToastTypes.info})
-							savePrompt = true;
-						}
-					}
-
-					// check key 9
-					if (keyMap[57]) {
-						AccountManager.loginToken("");
-					}
-					
-					keyMap = {};
-					
+						
 					// save accounts
 					if (savePrompt) {
-						keyMap[key.keyCode] = (key.type == 'keydown');
-						
 						// check keys 1-8
 						for (let idx = 1; idx < 9; idx++) { // account 1 - 8 num 1 - 8
 							if (keyMap[48 + idx]) {
