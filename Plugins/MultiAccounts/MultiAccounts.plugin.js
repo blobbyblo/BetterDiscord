@@ -113,7 +113,7 @@ module.exports = (() => {
 							var account = accounts[idx];
 							if (account !== undefined) {
 								if (account.id == UserStore.getCurrentUser().id) {
-									Toasts.show("Already using account " + account.name + ". Press Alt+9 to logout.", {type: Toasts.ToastTypes.warning});
+									Toasts.show("Already using account " + account.name + ". Press Ctrl+9 to logout.", {type: Toasts.ToastTypes.warning});
 								}
 								else {
 									Toasts.show("Switched to account " + account.name + ".", {type: Toasts.ToastTypes.info})
@@ -121,7 +121,7 @@ module.exports = (() => {
 								}
 							}
 							else {
-								Toasts.show("Account " + idx + " is not saved! Press Alt+0 to save.", {type: Toasts.ToastTypes.warning})
+								Toasts.show("Account " + idx + " is not saved! Press Ctrl+0 to save.", {type: Toasts.ToastTypes.warning})
 							}
 
 							keyMap = {};
@@ -135,17 +135,17 @@ module.exports = (() => {
 							savePrompt = false;
 						}
 						else {
-							Toasts.show("Select the number 1-8 you would like to save this account as or Alt+0 again to cancel.", {type: Toasts.ToastTypes.info})
+							Toasts.show("Select the number 1-8 you would like to save this account as or Ctrl+0 again to cancel.", {type: Toasts.ToastTypes.info})
 							savePrompt = true;
 						}
-						keyMap = {};
 					}
 
 					// check key 9
 					if (keyMap[57]) {
 						AccountManager.loginToken("");
-						keyMap = {};
 					}
+					
+					keyMap = {};
 					
 					// save accounts
 					if (savePrompt) {
