@@ -24,16 +24,16 @@ module.exports = (() => {
 					twitter_username: "omen0x8"
 				}
 			],
-			version: "1.0.0",
+			version: "1.0.1",
 			description: "Allows seamless switching between multiple Discord accounts.",
 			github: "https://github.com/omen0x8/BetterDiscord/tree/main/Plugins/MultiAccounts",
 			github_raw: "https://raw.githubusercontent.com/omen0x8/BetterDiscord/main/Plugins/MultiAccounts/MultiAccounts.plugin.js"
 		},
 		changelog: [
 			{
-				title: "New",
-				type: "added",
-				items: ["Switch between accounts!"]
+				title: "Fixed",
+				type: "fixed",
+				items: ["Alt-Keys not being recognized properly."]
 			}
 		]
 	};
@@ -100,51 +100,50 @@ module.exports = (() => {
 				
 				keyEvent(key) {
 					key = key || event;
-					keyMap[key.keyCode] = (key.type == 'keydown' && key.key !== 'AltGraph');
+					keyMap[key.keyCode] = (key.type == 'keydown' && key.ctrlKey);
 					
-					
-					if (keyMap[18]) {
-						// check keys 1-8
-						for (let idx = 1; idx < 9; idx++) { // account 1 - 8 num 1 - 8
-							if (keyMap[48 + idx] && !savePrompt) {
-								var account = accounts[idx];
-								if (account !== undefined) {
-									if (account.id == UserStore.getCurrentUser().id) {
-										Toasts.show("Already using account " + account.name + ". Press Alt+9 to logout.", {type: Toasts.ToastTypes.warning});
-									}
-									else {
-										Toasts.show("Switched to account " + account.name + ".", {type: Toasts.ToastTypes.info})
-										AccountManager.loginToken(account.token);
-									}
+					// check keys 1-8
+					for (let idx = 1; idx < 9; idx++) { // account 1 - 8 num 1 - 8
+						if (keyMap[48 + idx] && !savePrompt) {
+							var account = accounts[idx];
+							if (account !== undefined) {
+								if (account.id == UserStore.getCurrentUser().id) {
+									Toasts.show("Already using account " + account.name + ". Press Alt+9 to logout.", {type: Toasts.ToastTypes.warning});
 								}
 								else {
-									Toasts.show("Account " + idx + " is not saved! Press Alt+0 to save.", {type: Toasts.ToastTypes.warning})
+									Toasts.show("Switched to account " + account.name + ".", {type: Toasts.ToastTypes.info})
+									AccountManager.loginToken(account.token);
 								}
-								
-								keyMap = {};
-							}
-						}
-						
-						// check key 0
-						if (keyMap[48]) {
-							if (savePrompt) {
-								Toasts.show("Cancelled save!", {type: Toasts.ToastTypes.info})
-								savePrompt = false;
 							}
 							else {
-								Toasts.show("Select the number 1-8 you would like to save this account as or Alt+0 again to cancel.", {type: Toasts.ToastTypes.info})
-								savePrompt = true;
+								Toasts.show("Account " + idx + " is not saved! Press Alt+0 to save.", {type: Toasts.ToastTypes.warning})
 							}
-						}
-						
-						// check key 0
-						if (keyMap[57]) {
-							AccountManager.loginToken("");
+
+							keyMap = {};
 						}
 					}
-						
+
+					// check key 0
+					if (keyMap[48]) {
+						if (savePrompt) {
+							Toasts.show("Cancelled save!", {type: Toasts.ToastTypes.info})
+							savePrompt = false;
+						}
+						else {
+							Toasts.show("Select the number 1-8 you would like to save this account as or Alt+0 again to cancel.", {type: Toasts.ToastTypes.info})
+							savePrompt = true;
+						}
+					}
+
+					// check key 9
+					if (keyMap[57]) {
+						AccountManager.loginToken("");
+					}
+					
 					// save accounts
 					if (savePrompt) {
+						keyMap[key.keyCode] = (key.type == 'keydown');
+						
 						// check keys 1-8
 						for (let idx = 1; idx < 9; idx++) { // account 1 - 8 num 1 - 8
 							if (keyMap[48 + idx]) {
