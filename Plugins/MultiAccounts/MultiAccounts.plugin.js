@@ -24,7 +24,7 @@ module.exports = (() => {
 					twitter_username: "omen0x8"
 				}
 			],
-			version: "1.0.1",
+			version: "1.0.2",
 			description: "Allows seamless switching between multiple Discord accounts.",
 			github: "https://github.com/omen0x8/BetterDiscord/tree/main/Plugins/MultiAccounts",
 			github_raw: "https://raw.githubusercontent.com/omen0x8/BetterDiscord/main/Plugins/MultiAccounts/MultiAccounts.plugin.js"
@@ -100,7 +100,7 @@ module.exports = (() => {
 				
 				keyEvent(key) {
 					key = key || event;
-					keyMap[key.keyCode] = (key.type == 'keydown' && key.ctrlKey);
+					keyMap[key.keyCode] = (key.type == 'keydown' && key.code == 'AltLeft');
 					
 					// check keys 1-8
 					for (let idx = 1; idx < 9; idx++) { // account 1 - 8 num 1 - 8
@@ -133,11 +133,13 @@ module.exports = (() => {
 							Toasts.show("Select the number 1-8 you would like to save this account as or Alt+0 again to cancel.", {type: Toasts.ToastTypes.info})
 							savePrompt = true;
 						}
+						keyMap = {};
 					}
 
 					// check key 9
 					if (keyMap[57]) {
 						AccountManager.loginToken("");
+						keyMap = {};
 					}
 					
 					// save accounts
